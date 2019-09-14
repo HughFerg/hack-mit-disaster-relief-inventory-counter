@@ -44,13 +44,22 @@ objectsList = output['images'][0]['objects']['collections'][0]['objects']
 cleanedList = []
 for obj in objectsList:
     threshold = obj['score']
-    x1 = obj['left']
-    y1 = obj['top']
-    x2 = x1 + obj['width']
-    y2 = y1 + obj['height']
+    print(obj)
+    x1 = obj['location']['left']
+    y1 = obj['location']['top']
+    x2 = x1 + obj['location']['width']
+    y2 = y1 + obj['location']['height']
+
+    if threshold > 0.6:
+        cleanedList.append([x1,y1,x2,y2])
+
+currentImg = cv2.imread('test.jpg')
+
+for box in cleanedList:
+    currentImg = cv2.rectangle(currentImg, (box[0],box[1]),(box[2],box[3]),(255,0,0),2)
 
 
-
+cv2.imwrite('new.png',currentImg)
 
 
 
