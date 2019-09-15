@@ -4,3 +4,4 @@ Where ever disaster strikes, whether in a third world country or even right here
 
 Using a well-trained machine vision model on our Raspberry Pi 3, our aim is to provide a low-power, portable tool that allows for inventory tracking in disaster struck areas. Whether it's for fraud prevention, or to have a live feed of when there are changes in your stock, the tool utilizes visual recognition to make sure these scarce resources are being distributed properly and not getting lost among the many other things going on.
 
+![Screenshot](readimg1.jpg)
