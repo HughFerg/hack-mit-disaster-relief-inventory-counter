@@ -10,10 +10,12 @@
 ###############################################################################
 
 import time
-import cv2
 import requests
 import json
-
+import sys
+import numpy
+import picamera
+from time import sleep
 
 # Import helper functions
 #import tutorial_helpers as helpers
@@ -21,10 +23,26 @@ import json
 # Import the Python wrapper for the ELL model
 #import model
 
-
-
 #res = requests.get('https://gateway.watsonplatform.net/visual-recognition/api', auth=('apikey', 'iYZxsGs7z0-FxsgZmsaBqhkcf4NdMbM15WmwayaIAOr7'))
 
+sys.path.append('usr/local/lib/python3/site-packages')
+
+def get_img(camera):
+    if camera:
+        ret, frame = camera.read()
+        if not ret:
+            raise Exception("Shit didn't work")
+        return frame
+    return None
+
+def main():
+    camera = PiCamera()
+    camera.start_preview()
+    sleep(5)
+    camera.capture('./test-img.jpg')
+    camera.stop_preview()
+
+    image = get_img(camera)
 
 params = (
     ('version', '2019-02-11'),
@@ -53,14 +71,11 @@ for obj in objectsList:
     if threshold > 0.6:
         cleanedList.append([x1,y1,x2,y2])
 
-currentImg = cv2.imread('test.jpg')
-
 for box in cleanedList:
     currentImg = cv2.rectangle(currentImg, (box[0],box[1]),(box[2],box[3]),(255,0,0),2)
 
 
 cv2.imwrite('new.png',currentImg)
 
-
-
-
+if __name__ == "__main__":
+    main()
