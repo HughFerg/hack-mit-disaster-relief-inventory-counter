@@ -9,3 +9,9 @@ Using a well-trained machine vision model on our Raspberry Pi 3, our aim is to p
 
 ## Example Output:
 ![Screenshot](readimg2.jpg)
+
+## Training Instructions
+
+For best results, your foundation / relief group should collect 50+ unique images of your inventory/storage and label them accordingly. This framework uses the IBM Watson Visual Recognition portal to streamline the training process. As with everything in machine vision: the more data, the better.
+
+On the hardware side, the Raspberry Pi setup is a relatively quick and low power consuming image processing center for where ever you set up your storage.
