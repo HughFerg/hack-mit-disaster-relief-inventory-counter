@@ -50,7 +50,10 @@ def main():
     response = requests.post('https://gateway.watsonplatform.net/visual-recognition/api/v4/analyze', params=params, files=files, auth=('apikey', 'iYZxsGs7z0-FxsgZmsaBqhkcf4NdMbM15WmwayaIAOr7'))
 
     output = response.json()
-    objectsList = output['images'][0]['objects']['collections'][0]['objects']
+    try:
+        objectsList = output['images'][0]['objects']['collections'][0]['objects']
+    except:
+        print('darn, aint no boxes here')
 
     cleanedList = []
     for obj in objectsList:
@@ -64,12 +67,13 @@ def main():
         if threshold > 0.6:
             cleanedList.append([x1,y1,x2,y2])
 
-    draw = ImageDraw.Draw(open('./test-img.jpg'))
+    img = Image.open('./test-img.jpg')
+    draw = ImageDraw.Draw(img)
 
     for box in cleanedList:
         draw.rectangle(((box[0], box[1]), (box[2], box[3])), outline="blue",width = 7)
 
-    image.save('output.jpg',"JPEG")
+    img.save('output.jpg',"JPEG")
 
 if __name__ == "__main__":
     main()
