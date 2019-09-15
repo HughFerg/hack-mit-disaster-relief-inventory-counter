@@ -16,6 +16,7 @@ import sys
 import numpy
 import picamera
 from time import sleep
+from PIL import Image, ImageDraw
 
 # Import helper functions
 #import tutorial_helpers as helpers
@@ -71,11 +72,16 @@ for obj in objectsList:
     if threshold > 0.6:
         cleanedList.append([x1,y1,x2,y2])
 
+
+
+currentImg = Image.open('test.jpg')
+draw = ImageDraw.Draw(currentImg)
+
 for box in cleanedList:
-    currentImg = cv2.rectangle(currentImg, (box[0],box[1]),(box[2],box[3]),(255,0,0),2)
+    draw.rectangle(((box[0], box[1]), (box[2], box[3])), outline="blue",width = 7)
 
 
-cv2.imwrite('new.png',currentImg)
+currentImg.save('output.jpg',"JPEG")
 
 if __name__ == "__main__":
     main()
